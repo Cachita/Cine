@@ -133,52 +133,52 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 // Datos deben ser globales
 var peliculas = [{
   id: 'ligaDC',
-  nombre: 'Liga de la Justicia',
-  año: 2020,
-  personas: 10,
-  capacidad: 10
+  name: 'Liga de la Justicia',
+  year: 2020,
+  people: 10,
+  capacity: 10
 }, {
   id: 'ligaDC2',
-  nombre: 'Liga de la Justicia2',
-  año: 2020,
-  personas: 10,
-  capacidad: 10
+  name: 'Liga de la Justicia2',
+  year: 2020,
+  people: 10,
+  capacity: 10
 }]; // funcion que crea la cartelera 
 
 var cartelera = function cartelera() {
-  documento.querySelector('#cine').innerHTML = peliculas.mapa(function (pelicula) {
-    var nombre = pelicula.nombre,
-        año = pelicula.año,
-        personas = pelicula.personas,
-        capacidad = pelicula.capacidad; // Falta sumar el porcentaje que representa el numero de personas sobre la capacidad
+  document.querySelector('#cine').innerHTML = peliculas.map(function (pelicula) {
+    var name = pelicula.name,
+        year = pelicula.year,
+        people = pelicula.people,
+        capacity = pelicula.capacity; // Falta sumar el porcentaje que representa el numero de personas sobre la capacidad
     // Poner dentro de una etiqueta strong cuando llegue al 100%
 
-    return "<div>\n                <h3> $ { nombre } </h3>\n                <p> $ { a\xF1o } </p>\n                <p> $ { personas } </p>\n                <p> $ { capacidad } </p>\n              </div> ";
+    return "<div>\n            <h3>".concat(name, "</h3>\n            <p>").concat(year, "</p>\n            <p>").concat(people, "</p>\n            <p>").concat(capacity, "</p>\n            </div>");
   });
 };
 
 cartelera(); // funcion que actualiza el listado de peliculas
 
 var listado = function listado() {
-  documento.querySelector('#pelicula').innerHTML = peliculas.mapa(function (pelicula) {
-    // las opciones tienen un atributo que se llama disable, deben sumarlo si se llego al limite de la pelicula
-    return "<option value =\" $ { pelicula . id } \"> $ { pelicula . nombre } </option> ";
+  document.querySelector('#pelicula').innerHTML = peliculas.map(function (pelicula) {
+    // los options tienen un atributo que se llama disable, deben sumarlo si se llego al limite de la pelicula
+    return "<option value=\"".concat(pelicula.id, "\">").concat(pelicula.name, "</option>");
   });
 };
 
 listado(); // boton que se encarga de sumar una nueva pelicula
 
-documento.querySelector('#nueva').addEventListener('hacer clic', function () {
+document.querySelector('#nueva').addEventListener('click', function () {
   // aca convirte un texto en un array, quiere decir que deben escribir todo separado en comas 
-  // ej .: ligaDC, Liga de la Justicia, 2020, 10, 10
-  var pelicula = documento.querySelector('#datos').valor.dividir(','); // aca deben tomar ese array y convertirlo en un objeto tipo Pelicula
+  // eg: ligaDC, Liga de la Justicia, 2020, 10, 10
+  var pelicula = document.querySelector('#datos').value.split(','); // aca deben tomar ese array y convertirlo en un objeto tipo Pelicula
   // recuerden llamar las funciones de cartelera y listado
 }); // boton que se encarga de actualizar pelicula
 
-documento.querySelector('#guardar').addEventListener('hacer clic', function () {
+document.querySelector('#guardar').addEventListener('click', function () {
   var numero = parseInt(document.querySelector('#numero').value);
 
-  var peliculaSeleccionada = _toConsumableArray(documento.querySelector('#pelicula').selectedOptions).shift().valor; // aca deben actualizar la pelicula que selecciono
+  var peliculaSeleccionada = _toConsumableArray(document.querySelector('#pelicula').selectedOptions).shift().value; // aca deben actualizar la pelicula que selecciono
   // recuerden llamar las funciones de cartelera y listado
 
 });
