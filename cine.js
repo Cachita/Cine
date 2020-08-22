@@ -17,7 +17,7 @@ const peliculas = [{
   // funcion que crea la cartelera 
 const cartelera = () => {
     document.querySelector('#cine').innerHTML = peliculas.map(pelicula => {
-      const { name, year, people, capacity } = pelicula;
+      const {name, year, people, capacity} = pelicula;
       // Falta sumar el porcentaje que representa el numero de personas sobre la capacidad
       // Poner dentro de una etiqueta strong cuando llegue al 100%
       return `<div>
@@ -41,7 +41,7 @@ const cartelera = () => {
   
   // boton que se encarga de sumar una nueva pelicula
   document.querySelector('#nueva').addEventListener('click', () => {
-    // aca convirte un texto en un array, quiere decir que deben escribir todo separado en comas 
+    // aca convierte un texto en un array, quiere decir que deben escribir todo separado en comas 
     // eg: ligaDC, Liga de la Justicia, 2020, 10, 10
     const pelicula = document.querySelector('#datos').value.split(','); 
     // aca deben tomar ese array y convertirlo en un objeto tipo Pelicula
@@ -56,3 +56,4 @@ const cartelera = () => {
     // aca deben actualizar la pelicula que selecciono
     // recuerden llamar las funciones de cartelera y listado
   });
+
