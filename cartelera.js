@@ -1,4 +1,4 @@
-const cartelera = () => {
+const cartelera = (peliculas) => {
     document.querySelector('#cine').innerHTML = peliculas.map(pelicula => {
       const {name, year, people, capacity} = pelicula;
       // Falta sumar el porcentaje que representa el numero de personas sobre la capacidad

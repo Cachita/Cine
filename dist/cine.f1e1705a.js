@@ -152,7 +152,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var cartelera = function cartelera() {
+var cartelera = function cartelera(peliculas) {
   document.querySelector('#cine').innerHTML = peliculas.map(function (pelicula) {
     var name = pelicula.name,
         year = pelicula.year,
@@ -197,7 +197,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 var peliculas = []; // funcion que crea la cartelera 
 
-(0, _cartelera.default)(); // funcion que actualiza el listado de peliculas
+(0, _cartelera.default)(peliculas); // funcion que actualiza el listado de peliculas
 
 var listado = function listado() {
   document.querySelector('#pelicula').innerHTML = peliculas.map(function (pelicula) {
@@ -224,7 +224,7 @@ document.querySelector('#nueva').addEventListener('click', function () {
   var x = new _funcion.default(pelicula[0], pelicula[1], pelicula[2], pelicula[3], pelicula[4]); // recuerden llamar las funciones de cartelera y listado
 
   peliculas.push(x);
-  (0, _cartelera.default)();
+  (0, _cartelera.default)(peliculas);
   listado();
 }); // boton que se encarga de actualizar pelicula
 
@@ -240,7 +240,7 @@ document.querySelector('#guardar').addEventListener('click', function () {
     }
   }); // recuerden llamar las funciones de cartelera y listado
 
-  (0, _cartelera.default)();
+  (0, _cartelera.default)(peliculas);
   listado();
 });
 },{"/funcion":"funcion.js","/cartelera":"cartelera.js"}],"../../AppData/Roaming/nvm/v14.6.0/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -271,7 +271,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53211" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49792" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

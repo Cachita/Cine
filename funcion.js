@@ -6,7 +6,8 @@ function Pelicula (id = '', name = '', year = '', people = 0, capacity = 0){
     this.capacity = parseInt(capacity);
   
     this.percentage = function(){
-      return `${(this.people * 100/this.capacity)}`}
+      return `${(this.people * 100/this.capacity)}`
     }
+}
 
     export default Pelicula;

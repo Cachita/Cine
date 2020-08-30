@@ -7,7 +7,7 @@ const peliculas = [];
   // funcion que crea la cartelera 
 
 
-  cartelera();
+  cartelera(peliculas);
   
   // funcion que actualiza el listado de peliculas
   const listado = () => {
@@ -33,7 +33,7 @@ const peliculas = [];
     const x = new Pelicula(pelicula[0], pelicula[1], pelicula[2], pelicula[3], pelicula[4])
     // recuerden llamar las funciones de cartelera y listado
     peliculas.push(x);
-    cartelera();
+    cartelera(peliculas);
     listado();
   });
   
@@ -49,7 +49,7 @@ const peliculas = [];
       }
     })
     // recuerden llamar las funciones de cartelera y listado
-    cartelera();
+    cartelera(peliculas);
     listado();
   });
 
