@@ -117,133 +117,74 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"funcion.js":[function(require,module,exports) {
-"use strict";
+})({"../../AppData/Roaming/nvm/v14.6.0/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
 
-function Pelicula() {
-  var id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-  var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-  var year = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
-  var people = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
-  var capacity = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 0;
-  this.id = id;
-  this.name = name;
-  this.year = year;
-  this.people = parseInt(people);
-  this.capacity = parseInt(capacity);
-
-  this.percentage = function () {
-    return "".concat(this.people * 100 / this.capacity);
-  };
+  return bundleURL;
 }
 
-var _default = Pelicula;
-exports.default = _default;
-},{}],"cartelera.js":[function(require,module,exports) {
-"use strict";
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
 
-var cartelera = function cartelera() {
-  document.querySelector('#cine').innerHTML = peliculas.map(function (pelicula) {
-    var name = pelicula.name,
-        year = pelicula.year,
-        people = pelicula.people,
-        capacity = pelicula.capacity; // Falta sumar el porcentaje que representa el numero de personas sobre la capacidad
+  return '/';
+}
 
-    var porcentaje = pelicula.percentage(); // Poner dentro de una etiqueta strong cuando llegue al 100%
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
+}
 
-    if (porcentaje == 100) {
-      porcentaje = "<strong>".concat(pelicula.percentage(), "</strong>");
-    } else {
-      porcentaje = pelicula.percentage();
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../../AppData/Roaming/nvm/v14.6.0/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
     }
 
-    ;
-    return "<div>\n      <h3>".concat(name, "</h3>\n      <p>A\xF1o: ").concat(year, "</p>\n      <p>Personas: ").concat(people, "</p>\n      <p>Capacidad: ").concat(capacity, "</p>\n      <p>Porcentaje: ").concat(porcentaje, "</p>\n\n      </div>");
-  });
-};
+    cssTimeout = null;
+  }, 50);
+}
 
-var _default = cartelera;
-exports.default = _default;
-},{}],"cine.js":[function(require,module,exports) {
-"use strict";
-
-var _funcion = _interopRequireDefault(require("/funcion"));
-
-var _cartelera = _interopRequireDefault(require("/cartelera"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-var peliculas = []; // funcion que crea la cartelera 
-
-(0, _cartelera.default)(); // funcion que actualiza el listado de peliculas
-
-var listado = function listado() {
-  document.querySelector('#pelicula').innerHTML = peliculas.map(function (pelicula) {
-    // los options tienen un atributo que se llama disable, deben sumarlo si se llego al limite de la pelicula
-    var limite = '';
-
-    if (pelicula.people == pelicula.capacity) {
-      limite = "<option value=\"".concat(pelicula.id, "\" disabled>").concat(pelicula.name, "</option>");
-    } else {
-      limite = "<option value=\"".concat(pelicula.id, "\">").concat(pelicula.name, "</option>");
-    }
-
-    return limite;
-  });
-};
-
-listado(); // boton que se encarga de sumar una nueva pelicula
-
-document.querySelector('#nueva').addEventListener('click', function () {
-  // aca convierte un texto en un array, quiere decir que deben escribir todo separado en comas 
-  // eg: ligaDC, Liga de la Justicia, 2020, 10, 10
-  var pelicula = document.querySelector('#datos').value.split(','); // aca deben tomar ese array y convertirlo en un objeto tipo Pelicula
-
-  var x = new _funcion.default(pelicula[0], pelicula[1], pelicula[2], pelicula[3], pelicula[4]); // recuerden llamar las funciones de cartelera y listado
-
-  peliculas.push(x);
-  (0, _cartelera.default)();
-  listado();
-}); // boton que se encarga de actualizar pelicula
-
-document.querySelector('#guardar').addEventListener('click', function () {
-  var numero = parseInt(document.querySelector('#numero').value);
-
-  var peliculaSeleccionada = _toConsumableArray(document.querySelector('#pelicula').selectedOptions).shift().value; // aca deben actualizar la pelicula que selecciono
-
-
-  peliculas.map(function (pelicula) {
-    if (pelicula.id == peliculaSeleccionada) {
-      pelicula.people = pelicula.people + numero;
-    }
-  }); // recuerden llamar las funciones de cartelera y listado
-
-  (0, _cartelera.default)();
-  listado();
-});
-},{"/funcion":"funcion.js","/cartelera":"cartelera.js"}],"../../AppData/Roaming/nvm/v14.6.0/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+module.exports = reloadCSS;
+},{"./bundle-url":"../../AppData/Roaming/nvm/v14.6.0/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"../../AppData/Roaming/nvm/v14.6.0/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -447,5 +388,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../AppData/Roaming/nvm/v14.6.0/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","cine.js"], null)
-//# sourceMappingURL=/cine.f1e1705a.js.map
+},{}]},{},["../../AppData/Roaming/nvm/v14.6.0/node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
+//# sourceMappingURL=/index.js.map
